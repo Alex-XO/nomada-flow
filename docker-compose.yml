@@ -1,0 +1,17 @@
+version: '3.8'
+
+volumes:
+  postgis:
+
+services:
+  db:
+    image: postgis/postgis:latest  # Используем образ с PostgreSQL и PostGIS
+    container_name: my_postgres_postgis  # Имя контейнера
+    environment:
+      POSTGRES_USER: postgres           # Установите имя пользователя
+      POSTGRES_PASSWORD: 1234   # Установите пароль
+      POSTGRES_DB: nomada-flow               # Установите название базы данных
+    ports:
+      - "5433:5432"                   # Пробрасываем порт 5432 для доступа к БД
+    volumes:
+      - postgis:/var/lib/postgresql/data  # Сохраняем данные между перезапусками

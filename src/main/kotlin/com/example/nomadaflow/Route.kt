@@ -1,0 +1,18 @@
+package com.example.nomadaflow
+
+import jakarta.persistence.*
+
+@Entity
+data class Route(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+
+    @Column(nullable = false)
+    val name: String,
+
+    val description: String? = null,
+
+    @OneToMany(mappedBy = "route", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var stops: List<Stop> = mutableListOf() // Делаем поле изменяемым
+)

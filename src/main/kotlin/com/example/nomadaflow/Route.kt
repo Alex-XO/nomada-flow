@@ -9,10 +9,10 @@ data class Route(
     val id: Long = 0,
 
     @Column(nullable = false)
-    val name: String,
+    var name: String,
 
-    val description: String? = null,
+    var description: String? = null,
 
     @OneToMany(mappedBy = "route", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var stops: List<Stop> = mutableListOf() // Делаем поле изменяемым
+    var stops: MutableList<Stop> = mutableListOf() // Делаем поле изменяемым
 )

@@ -9,18 +9,18 @@ data class Stop(
     val id: Long = 0,
 
     @Column(nullable = false)
-    val name: String,
+    var name: String,
 
-    val description: String? = null,
-
-    @Column(nullable = false)
-    val latitude: Double,
+    var description: String? = null,
 
     @Column(nullable = false)
-    val longitude: Double,
+    var latitude: Double,
+
+    @Column(nullable = false)
+    var longitude: Double,
 
     @Column(name = "stop_type")
-    val stopType: String? = null,
+    var stopType: String? = null,
 
     @ManyToOne
     @JoinColumn(name = "route_id", nullable = false)

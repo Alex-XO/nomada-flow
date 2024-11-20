@@ -13,4 +13,3 @@ data class CreateStopRequest(
     val longitude: Double,
     val stopType: String? = null
 )
-

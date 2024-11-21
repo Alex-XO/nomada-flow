@@ -1,7 +1,6 @@
 package com.example.nomadaflow
 
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -31,7 +30,7 @@ class StopController(
     // Создание новой остановки
     @PostMapping
     fun createStop(
-        @RequestBody request: CreateStopRequest,
+        @RequestBody request: CreateRouteRequest.Stop,
         @RequestParam routeId: Long
     ): ResponseEntity<StopView> {
         val route = routeRepository.findById(routeId).orElseThrow {
@@ -64,9 +63,6 @@ class StopController(
     // Удаление остановки
     @DeleteMapping("/{id}")
     fun deleteStop(@PathVariable id: Long): ResponseEntity<Void> {
-        if (!stopRepository.existsById(id)) {
-            throw IllegalArgumentException("Stop with id $id not found")
-        }
         stopRepository.deleteById(id)
         return ResponseEntity.noContent().build()
     }
@@ -75,18 +71,20 @@ class StopController(
     @PutMapping("/{id}")
     fun updateStop(
         @PathVariable id: Long,
-        @RequestBody request: CreateStopRequest
+        @RequestBody request: CreateRouteRequest.Stop
     ): ResponseEntity<StopView> {
         val existingStop = stopRepository.findById(id).orElseThrow {
             IllegalArgumentException("Stop with id $id not found")
         }
 
         // Обновляем данные остановки
-        existingStop.name = request.name
-        existingStop.description = request.description
-        existingStop.latitude = request.latitude
-        existingStop.longitude = request.longitude
-        existingStop.stopType = request.stopType
+        existingStop.apply {
+            name = request.name
+            description = request.description
+            latitude = request.latitude
+            longitude = request.longitude
+            stopType = request.stopType
+        }
 
         val updatedStop = stopRepository.save(existingStop)
 

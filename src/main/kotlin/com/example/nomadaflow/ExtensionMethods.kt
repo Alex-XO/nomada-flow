@@ -1,6 +1,6 @@
 package com.example.nomadaflow
 
-fun List<CreateStopRequest>.toStops(route: Route): List<Stop> {
+fun List<CreateRouteRequest.Stop>.toStops(route: Route): List<Stop> {
     return this.map { stopRequest ->
         Stop(
             name = stopRequest.name,

@@ -15,7 +15,7 @@ class RouteService(
         )
 
         val stops = request.stops.toStops(route)
-        route.stops = stops.toMutableList()
+        route.stops = stops
 
         val savedRoute = routeRepository.save(route)
         return savedRoute.toView()
@@ -30,9 +30,7 @@ class RouteService(
         existingRoute.name = request.name
         existingRoute.description = request.description
 
-        existingRoute.stops.clear()
-        val newStops = request.stops.toStops(existingRoute)
-        existingRoute.stops.addAll(newStops)
+        existingRoute.stops = request.stops.toStops(existingRoute)
 
         val updatedRoute = routeRepository.save(existingRoute)
         return updatedRoute.toView()
@@ -40,9 +38,6 @@ class RouteService(
 
     @Transactional
     fun deleteRoute(id: Long) {
-        if (!routeRepository.existsById(id)) {
-            throw IllegalArgumentException("Route with id $id not found")
-        }
         routeRepository.deleteById(id)
     }
 

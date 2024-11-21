@@ -14,5 +14,5 @@ data class Route(
     var description: String? = null,
 
     @OneToMany(mappedBy = "route", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var stops: MutableList<Stop> = mutableListOf() // Делаем поле изменяемым
+    var stops: List<Stop> = emptyList()
 )

@@ -10,9 +10,9 @@ class RouteController(
     private val routeService: RouteService
 ) {
     @PostMapping
-    fun createRoute(@RequestBody request: CreateRouteRequest): ResponseEntity<RouteView> {
-        val routeView = routeService.createRoute(request)
-        return ResponseEntity.status(HttpStatus.CREATED).body(routeView)
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createRoute(@RequestBody request: CreateRouteRequest): RouteView {
+        return routeService.createRoute(request)
     }
 
     @PutMapping("/{id}")

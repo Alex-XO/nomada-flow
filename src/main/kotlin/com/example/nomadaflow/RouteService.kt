@@ -23,9 +23,7 @@ class RouteService(
 
     @Transactional
     fun updateRoute(id: Long, request: CreateRouteRequest): RouteView {
-        val existingRoute = routeRepository.findById(id).orElseThrow {
-            IllegalArgumentException("Route with id $id not found")
-        }
+        val existingRoute = routeRepository.findByIdOrThrow(id)
 
         existingRoute.name = request.name
         existingRoute.description = request.description

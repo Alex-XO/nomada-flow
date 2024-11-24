@@ -1,5 +1,7 @@
 package com.example.nomadaflow
 
+import org.springframework.data.jpa.repository.JpaRepository
+
 fun List<CreateRouteRequest.Stop>.toStops(route: Route): List<Stop> {
     return this.map { stopRequest ->
         Stop(
@@ -42,3 +44,8 @@ fun Stop.toView(): StopView {
     )
 }
 
+inline fun <reified T> JpaRepository<T, Long>.findByIdOrThrow(id: Long): T {
+    return this.findById(id).orElseThrow {
+        IllegalArgumentException("${T::class.simpleName} with id $id not found")
+    }
+}

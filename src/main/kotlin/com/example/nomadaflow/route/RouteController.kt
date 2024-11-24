@@ -1,5 +1,7 @@
-package com.example.nomadaflow
+package com.example.nomadaflow.route
 
+import com.example.nomadaflow.CreateRouteRequest
+import com.example.nomadaflow.RouteView
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

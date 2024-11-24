@@ -1,5 +1,7 @@
 package com.example.nomadaflow
 
+import com.example.nomadaflow.route.Route
+import com.example.nomadaflow.stop.Stop
 import org.springframework.data.jpa.repository.JpaRepository
 
 fun List<CreateRouteRequest.Stop>.toStops(route: Route): List<Stop> {

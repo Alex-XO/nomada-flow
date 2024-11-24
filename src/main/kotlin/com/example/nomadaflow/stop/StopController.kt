@@ -1,5 +1,6 @@
-package com.example.nomadaflow
+package com.example.nomadaflow.stop
 
+import com.example.nomadaflow.StopView
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 

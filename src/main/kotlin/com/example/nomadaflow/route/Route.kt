@@ -1,5 +1,6 @@
-package com.example.nomadaflow
+package com.example.nomadaflow.route
 
+import com.example.nomadaflow.stop.Stop
 import jakarta.persistence.*
 
 @Entity

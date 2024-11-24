@@ -1,5 +1,6 @@
-package com.example.nomadaflow
+package com.example.nomadaflow.stop
 
+import com.example.nomadaflow.*
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

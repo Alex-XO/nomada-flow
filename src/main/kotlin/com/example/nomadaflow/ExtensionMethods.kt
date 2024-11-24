@@ -30,3 +30,15 @@ fun Route.toView(): RouteView {
         }
     )
 }
+
+fun Stop.toView(): StopView {
+    return StopView(
+        id = this.id,
+        name = this.name,
+        description = this.description,
+        latitude = this.latitude,
+        longitude = this.longitude,
+        stopType = this.stopType
+    )
+}
+

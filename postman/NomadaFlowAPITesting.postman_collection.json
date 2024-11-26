@@ -1,0 +1,174 @@
+{
+	"info": {
+		"name": "NomadaFlow API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Stops",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://localhost:8080/api/stops",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "stops"]
+				}
+			}
+		},
+		{
+			"name": "Create Stop",
+			"request": {
+				"method": "POST",
+				"url": {
+					"raw": "http://localhost:8080/api/stops?routeId={routeId}",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "stops"],
+					"query": [
+						{
+							"key": "routeId",
+							"value": "1"
+						}
+					]
+				},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"New Stop\",\n  \"description\": \"Description of the stop\",\n  \"latitude\": 40.712776,\n  \"longitude\": -74.005974,\n  \"stopType\": \"Park\"\n}"
+				}
+			}
+		},
+		{
+			"name": "Update Stop",
+			"request": {
+				"method": "PUT",
+				"url": {
+					"raw": "http://localhost:8080/api/stops/{id}",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "stops", "{id}"],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Updated Stop\",\n  \"description\": \"Updated description\",\n  \"latitude\": 40.713776,\n  \"longitude\": -74.006974,\n  \"stopType\": \"Museum\"\n}"
+				}
+			}
+		},
+		{
+			"name": "Delete Stop",
+			"request": {
+				"method": "DELETE",
+				"url": {
+					"raw": "http://localhost:8080/api/stops/{id}",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "stops", "{id}"],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "Get All Routes",
+			"request": {
+				"method": "GET",
+				"url": {
+					"raw": "http://localhost:8080/api/routes",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "routes"]
+				}
+			}
+		},
+		{
+			"name": "Create Route",
+			"request": {
+				"method": "POST",
+				"url": {
+					"raw": "http://localhost:8080/api/routes",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "routes"]
+				},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"New Route\",\n  \"description\": \"Description of the route\",\n  \"stops\": [\n    {\n      \"name\": \"Stop 1\",\n      \"description\": \"Description of stop 1\",\n      \"latitude\": 40.712776,\n      \"longitude\": -74.005974,\n      \"stopType\": \"Park\"\n    },\n    {\n      \"name\": \"Stop 2\",\n      \"description\": \"Description of stop 2\",\n      \"latitude\": 34.052235,\n      \"longitude\": -118.243683,\n      \"stopType\": \"Museum\"\n    }\n  ]\n}"
+				}
+			}
+		},
+		{
+			"name": "Update Route",
+			"request": {
+				"method": "PUT",
+				"url": {
+					"raw": "http://localhost:8080/api/routes/{id}",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "routes", "{id}"],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Updated Route\",\n  \"description\": \"Updated route description\",\n  \"stops\": [\n    {\n      \"name\": \"Updated Stop 1\",\n      \"description\": \"Updated description of stop 1\",\n      \"latitude\": 40.713776,\n      \"longitude\": -74.006974,\n      \"stopType\": \"Park\"\n    }\n  ]\n}"
+				}
+			}
+		},
+		{
+			"name": "Delete Route",
+			"request": {
+				"method": "DELETE",
+				"url": {
+					"raw": "http://localhost:8080/api/routes/{id}",
+					"host": ["localhost"],
+					"port": "8080",
+					"path": ["api", "routes", "{id}"],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			}
+		}
+	]
+}

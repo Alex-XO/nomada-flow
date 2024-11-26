@@ -1,6 +1,7 @@
 package com.example.nomadaflow.stop
 
 import com.example.nomadaflow.StopView
+import jakarta.validation.Valid
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
@@ -16,7 +17,7 @@ class StopController(private val stopService: StopService) {
 
     @PostMapping
     fun createStop(
-        @RequestBody stop: Stop,
+        @Valid @RequestBody stop: Stop,
         @RequestParam routeId: Long
     ): ResponseEntity<StopView> {
         val stopView = stopService.createStop(stop, routeId)
@@ -32,7 +33,7 @@ class StopController(private val stopService: StopService) {
     @PutMapping("/{id}")
     fun updateStop(
         @PathVariable id: Long,
-        @RequestBody stop: Stop
+        @Valid @RequestBody stop: Stop
     ): ResponseEntity<StopView> {
         val updatedStop = stopService.updateStop(id, stop)
         return ResponseEntity.ok(updatedStop)

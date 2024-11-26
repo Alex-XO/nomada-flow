@@ -51,3 +51,9 @@ inline fun <reified T> JpaRepository<T, Long>.findByIdOrThrow(id: Long): T {
         IllegalArgumentException("${T::class.simpleName} with id $id not found")
     }
 }
+
+fun Route.findStopOrThrow(stopId: Long): Stop {
+    return this.stops.find { it.id == stopId }
+        ?: throw IllegalArgumentException("Stop with id $stopId not found in route with id ${this.id}")
+}
+

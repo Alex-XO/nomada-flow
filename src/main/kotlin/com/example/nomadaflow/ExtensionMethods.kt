@@ -57,3 +57,28 @@ fun Route.findStopOrThrow(stopId: Long): Stop {
         ?: throw IllegalArgumentException("Stop with id $stopId not found in route with id ${this.id}")
 }
 
+fun throwIfInvalidAddress(address: String) {
+    if (address.isBlank()) throw IllegalArgumentException("Address cannot be blank.")
+}
+
+fun throwIfResponseUnsuccessful(code: Int, context: String) {
+    throw IllegalStateException("Error in $context: HTTP status code $code.")
+}
+
+fun throwIfEmptyJson(json: com.fasterxml.jackson.databind.JsonNode, context: String) {
+    if (json.isEmpty) throw IllegalStateException("$context returned an empty result.")
+}
+
+fun throwIfNullField(field: Any?, fieldName: String, context: String) {
+    if (field == null) {
+        throw IllegalStateException("$fieldName is missing in $context.")
+    }
+}
+
+fun throwIfInvalidCoordinates(coordinates: Pair<Double, Double>) {
+    val (lat, lon) = coordinates
+    if (lat !in -90.0..90.0 || lon !in -180.0..180.0) {
+        throw IllegalArgumentException("Invalid coordinates: $coordinates.")
+    }
+}
+

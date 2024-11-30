@@ -1,5 +1,6 @@
 package com.example.nomadaflow.maps
 
+import jakarta.validation.constraints.NotBlank
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -16,18 +17,13 @@ class MapController(
 
     @GetMapping("/route")
     fun getRouteAndMap(
-        @RequestParam origin: String,
-        @RequestParam destination: String
+        @RequestParam @NotBlank(message = "Origin cannot be blank.") origin: String,
+        @RequestParam @NotBlank(message = "Destination cannot be blank.") destination: String
     ): Map<String, Any> {
         return try {
-            // Получаем координаты для origin и destination
-            val originCoordinates = nominatimService.geocode(origin)
-            val destinationCoordinates = nominatimService.geocode(destination)
-
-            // Получаем маршрут с помощью OSRM
-            val route = osrmService.getRoute(originCoordinates, destinationCoordinates)
-
-            // Формируем GeoJSON для маршрута
+            val originCoordinates = nominatimService.geocode(origin) // Получаем координаты отправной точки
+            val destinationCoordinates = nominatimService.geocode(destination) // Получаем координаты конечной точки
+            val route = osrmService.getRoute(originCoordinates, destinationCoordinates) // Строим маршрут
             mapOf("geoJson" to generateGeoJson(route, originCoordinates, destinationCoordinates))
         } catch (e: Exception) {
             logger.error("Error while generating route and map: ${e.message}", e)

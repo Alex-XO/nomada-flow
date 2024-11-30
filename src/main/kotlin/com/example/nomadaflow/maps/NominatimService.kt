@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.stereotype.Service
+import com.example.nomadaflow.*
 
 @Service
 class NominatimService(
@@ -12,24 +13,26 @@ class NominatimService(
 
     private val objectMapper = jacksonObjectMapper()
 
-    // Получение координат по адресу
+    // Геокодирование: получение координат по адресу
     fun geocode(address: String): Pair<Double, Double> {
+        throwIfInvalidAddress(address) // Проверяем адрес
+
         val url = "https://nominatim.openstreetmap.org/search?q=$address&format=json&limit=1"
         val request = Request.Builder()
             .url(url)
-            .header("User-Agent", "NomadaFlow/1.0 (kurianovaaleksandra@gmail.com)")
+            .header("User-Agent", "NomadaFlow/1.0 (example@example.com)")
             .build()
 
         httpClient.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) throw IllegalStateException("Ошибка геокодирования: ${response.code}")
+            if (!response.isSuccessful) throwIfResponseUnsuccessful(response.code, "geocoding")
 
             val json = objectMapper.readTree(response.body?.string())
-            if (json.isEmpty) throw IllegalStateException("Адрес не найден: $address")
+            throwIfEmptyJson(json, "Geocoding") // Проверяем, что JSON не пустой
 
             val lat = json[0]["lat"].asDouble()
             val lon = json[0]["lon"].asDouble()
 
-            println("Геокодирование: $address -> [$lat, $lon]") // Лог координат
+            println("Геокодирование: $address -> [$lat, $lon]") // Логируем координаты
             return lat to lon
         }
     }

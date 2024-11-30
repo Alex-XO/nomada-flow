@@ -39,33 +39,23 @@ class MapController(
         origin: Pair<Double, Double>,
         destination: Pair<Double, Double>
     ): Map<String, Any> {
+        fun createFeature(type: String, coordinates: Any, name: String): Map<String, Any> {
+            return mapOf(
+                "type" to "Feature",
+                "geometry" to mapOf(
+                    "type" to type,
+                    "coordinates" to coordinates
+                ),
+                "properties" to mapOf("name" to name)
+            )
+        }
+
         return mapOf(
             "type" to "FeatureCollection",
             "features" to listOf(
-                mapOf(
-                    "type" to "Feature",
-                    "geometry" to mapOf(
-                        "type" to "LineString",
-                        "coordinates" to route.map { listOf(it.second, it.first) }
-                    ),
-                    "properties" to mapOf("name" to "Route")
-                ),
-                mapOf(
-                    "type" to "Feature",
-                    "geometry" to mapOf(
-                        "type" to "Point",
-                        "coordinates" to listOf(origin.second, origin.first)
-                    ),
-                    "properties" to mapOf("name" to "Origin")
-                ),
-                mapOf(
-                    "type" to "Feature",
-                    "geometry" to mapOf(
-                        "type" to "Point",
-                        "coordinates" to listOf(destination.second, destination.first)
-                    ),
-                    "properties" to mapOf("name" to "Destination")
-                )
+                createFeature("LineString", route.map { listOf(it.second, it.first) }, "Route"),
+                createFeature("Point", listOf(origin.second, origin.first), "Origin"),
+                createFeature("Point", listOf(destination.second, destination.first), "Destination")
             )
         )
     }

@@ -5,6 +5,7 @@ import okhttp3.Request
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.stereotype.Service
 import com.example.nomadaflow.*
+import org.springframework.cache.annotation.Cacheable
 
 @Service
 class NominatimService(
@@ -14,6 +15,7 @@ class NominatimService(
     private val objectMapper = jacksonObjectMapper()
 
     // Геокодирование: получение координат по адресу
+    @Cacheable("geocode")
     fun geocode(address: String): Pair<Double, Double> {
         throwIfInvalidAddress(address) // Проверяем адрес
 

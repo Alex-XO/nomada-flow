@@ -5,6 +5,7 @@ import okhttp3.Request
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.stereotype.Service
 import com.example.nomadaflow.*
+import org.springframework.cache.annotation.Cacheable
 
 @Service
 class OSRMService(
@@ -14,6 +15,7 @@ class OSRMService(
     private val objectMapper = jacksonObjectMapper()
 
     // Получение маршрута между двумя точками
+    @Cacheable("routes")
     fun getRoute(origin: Pair<Double, Double>, destination: Pair<Double, Double>): List<Pair<Double, Double>> {
         throwIfInvalidCoordinates(origin) // Проверяем координаты
         throwIfInvalidCoordinates(destination)
